@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+.asimovian-regular {
+  font-family: "Asimovian", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.figtree {
+  font-family: "Figtree", sans-serif;
+}
+
+.blur-bg {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.3); /* semi-transparent */
+}
+
+.home-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* covers the container without stretching */
+  transform: translate(-50%, -50%);
+  z-index: -1; /* makes sure content is on top */
+}
+/* Dark overlay */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* 60% opacity black */
+  z-index: -1; /* between video and content */
+}
+.content {
+  position: relative;
+  z-index: 100;
+  color: white;
+  text-align: center;
+  top: 40%;
+  transform: translateY(-50%);
+}
