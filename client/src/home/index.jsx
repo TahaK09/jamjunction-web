@@ -77,8 +77,11 @@ function Home() {
           src={bgVideo}
         ></video>
         <div className="overlay"></div>
-        <div className="content w-full py-3 bg-gradient-to-b from-transparent via-black to-black text-white text-3xl asimovian-regular flex flex-col items-center justify-center">
+        <div className="content w-full pb-10 bg-gradient-to-b from-transparent via-black/50 to-black text-white text-3xl asimovian-regular flex flex-col items-center justify-center">
           JamJunction
+          <div className="text-sm font-light mt-2 figtree w-60 text-center">
+            Register for Shaan-e-Shukoon happening on 22th Sept!
+          </div>
           <button className="mt-10 w-auto px-3 py-2 rounded-full text-sm figtree bg-violet-700">
             Book the latest Event!
           </button>
