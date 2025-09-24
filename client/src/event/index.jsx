@@ -7,16 +7,11 @@ import Person1 from "../assets/person-1.jpg";
 
 function Event({ eventId }) {
   const [copied, setCopied] = useState(false);
-  const [ticketAmount, setTicketAmount] = useState(499);
-  const [orderID, setOrderID] = useState("");
-  const Razorpay = window.Razorpay;
-  const [quantity, setQuantity] = useState(1);
-  const [name, setName] = useState("Gaurav Kumar");
-  const [email, setEmail] = useState("gauravkumar@fmail.com");
-  const [phone, setPhone] = useState("+919876543210");
-
   const navigate = useNavigate();
 
+  const checkout = async () => {
+    navigate("/pricing");
+  };
   const handleInvite = async () => {
     const link = "https://jamjunctionlucknow.com/shaam-e-sukoon/";
 
@@ -37,118 +32,6 @@ function Event({ eventId }) {
     } catch (error) {
       console.error("Error sharing:", error);
     }
-  };
-
-  const handlePayment = async (e) => {
-    // 1. Create order on the server (send amount, currency)
-    const res = await fetch("http://localhost:5000/api/payments/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: ticketAmount,
-        currency: "INR",
-        receipt: `receipt_${Math.random().toString(36).substring(7)}`,
-      }),
-    });
-    const data = await res.json();
-    if (data.success === false) {
-      alert("Server error. Are you running the backend?");
-      return;
-    }
-    setOrderID(data.order.id);
-    console.log(data);
-
-    // 2. Create Ticket in DB with paymentStatus pending
-    const ticketRes = await fetch("http://localhost:5000/api/tickets/book", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        eventId: eventId,
-        quantity: quantity,
-        price: ticketAmount,
-        orderId: data.order.id,
-      }),
-    });
-    const ticketData = await ticketRes.json();
-    if (!ticketData.ticket) {
-      alert("Error creating ticket. Try again");
-      return;
-    }
-
-    // 3. Initialize Razorpay payment gateway
-    const options = {
-      key: "rzp_test_RKdvCOb9U75RGb", // Enter the Key ID generated from the Dashboard
-      amount: ticketAmount, // Amount is in currency subunits.
-      currency: "INR",
-      name: "Jam Junction Lucknow",
-      description: "Test Transaction",
-      image:
-        "https://instagram.flko10-1.fna.fbcdn.net/v/t51.2885-19/545443808_17857648308503111_5798156083902684571_n.jpg?efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLmRqYW5nby44NzIuYzIifQ&_nc_ht=instagram.flko10-1.fna.fbcdn.net&_nc_cat=111&_nc_oc=Q6cZ2QGmpryJ80qJJvvJkYA4zbSuJuZg1jceBgHzQkWs7qfyFFOP5MdaXHpFlQqoV9J7T3TkXA71o4JrwBxtmVUAPb9a&_nc_ohc=3q9BkPcSjRUQ7kNvwFl5erk&_nc_gid=6z8GM-pmyuZkB3CZOgDE4w&edm=AP4sbd4BAAAA&ccb=7-5&oh=00_Afa5-lUdESQQ6gSvMMKNz3Cwu2TCbmo_q3gEN_vShKy-PQ&oe=68D7C609&_nc_sid=7a9f4b",
-      order_id: orderID,
-      // callback_url: "http://localhost:5173/qr", //where to send the user after payment
-      // callback_url: "https://jamjunctionlucknow.com/qr", //where to send the user after payment
-      handler: async function (response) {
-        const body = {
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-        };
-
-        const validatePayment = await fetch(
-          "http://localhost:5000/api/payments/verify",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
-          }
-        );
-        const res = await validatePayment.json();
-        if (res.success) {
-          alert(res.message);
-          navigate("/qr");
-        } else {
-          alert("Payment Failed");
-        }
-
-        //verify payment at server to prevent forgery
-        // fetch("http://localhost:5000/api/payments/verify", {
-        //   method: "POST",
-        //   headers: { "Content-Type": "application/json" },
-        //   body: JSON.stringify(body),
-        // })
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     if (data.success) {
-        //       alert("Payment Successful");
-        //       navigate("/qr");
-        //     } else {
-        //       alert("Payment Failed");
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     console.error(err);
-        //     alert("Payment Failed");
-        //   });
-        // alert("Payment Successful");
-        // navigate("/qr");
-      },
-      prefill: {
-        name: name, //your customer's name
-        email: email, //your customer's email
-        contact: phone, //Provide the customer's phone number for better conversion rates
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-
-    var rzp1 = new Razorpay(options);
-
-    rzp1.open();
-    e.preventDefault();
   };
 
   return (
@@ -239,7 +122,7 @@ function Event({ eventId }) {
           {/* Book your tickets */}
           <div className="w-full flex justify-center items-center h-40 bg-gradient-to-b from-transparent via-white to-white fixed bottom-0 left-0 right-0 p-4">
             <button
-              onClick={handlePayment}
+              onClick={checkout}
               className="flex justify-center items-center gap-6 w-full px-6 h-10 rounded-lg bg-violet-500 hover:bg-violet-600 text-white text-base font-medium figtree mt-6"
             >
               Buy Tickets ₹499
