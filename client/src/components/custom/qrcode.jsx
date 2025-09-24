@@ -1,7 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
+import { useParams } from "react-router-dom";
 
-const QRComponent = ({ text }) => {
+const QRComponent = () => {
+  const { bookingId } = useParams();
+  const [ticketDetails, setTicketDetails] = useState([]);
+  const [eventDetails, setEventDetails] = useState([]);
+
+  useEffect(() => {
+    const fetchTicketDetails = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/tickets/${bookingId}`
+        );
+        const data = await response.json();
+        if (data.success) {
+          setTicketDetails(data.ticket);
+        } else {
+          console.error("Failed to fetch ticket details");
+        }
+      } catch (error) {
+        console.error("Error fetching ticket details:", error);
+      }
+    };
+    if (bookingId) {
+      fetchTicketDetails();
+    }
+  }, [bookingId]);
+
+  useEffect(() => {
+    const fetchEventDetails = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/events/${ticketDetails?.eventId?._id}`
+        );
+        const data = await response.json();
+        console.log(data.event);
+        if (data.success) {
+          setEventDetails(data.event);
+        } else {
+          console.error("Failed to fetch event details");
+        }
+      } catch (error) {
+        console.error("Error fetching event details:", error);
+      }
+    };
+    fetchEventDetails();
+  }, [ticketDetails]);
+
+  const dateFormat = (dateStr) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(dateStr).toLocaleDateString(undefined, options);
+  };
+  const Day = (eventDate) => {
+    const date = new Date(eventDate);
+    const days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    const dayIndex = date.getUTCDay();
+    return days[dayIndex];
+  };
+
   return (
     <>
       <div className="bg-gray-800 w-screen h-screen flex items-center justify-center">
@@ -28,32 +97,33 @@ const QRComponent = ({ text }) => {
             </div>
             <div className="flex flex-col justify-center items-start">
               <div className="ml-2 text-base text-gray-100 font-medium">
-                20th September, 2025
+                {dateFormat(eventDetails.date)}
               </div>
               <div className="ml-2 text-sm text-gray-200 font-light">
-                Friday, 6:00 PM - 10:00 PM
+                {Day(eventDetails.date)}, {eventDetails.startTime} -{" "}
+                {eventDetails.endTime}
               </div>
             </div>
           </div>
 
           {/* QR Code */}
           <div className="p-4 bg-white rounded-xl mt-5">
-            <QRCode value={text} size={150} />
+            <QRCode value={bookingId} size={150} />
           </div>
 
           {/* Seat Details /Floor Details */}
           <div className="text-sm text-gray-300 font-medium figtree">
-            Jasan-e-sukoon
+            {eventDetails.title}
           </div>
 
           <div className="h-px mt-3 border-dashed border-b-2 border-[#373737] w-full"></div>
 
           <div className="text-center flex flex-col items-center justify-center gap-1">
             <div className="text-base font-medium text-white figtree">
-              HONS Cafe, Hazratganj, Lucknow
+              {eventDetails?.eventId?.venue}
             </div>
             <div className="text-sm font-medium text-gray-400 figtree">
-              Booking ID: FDIS#3DS
+              Booking ID: {ticketDetails?.bookingId}
             </div>
           </div>
         </div>
