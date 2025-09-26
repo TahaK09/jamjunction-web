@@ -11,10 +11,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/shaan-e-shukoon"
-            element={<Event eventId={"68d1d78ba009977a61bb0637"} />}
+            path="/event/:eventSlug"
+            element={<Event eventId={"68d6745c43f5ee55145b8a94"} />}
           />
-          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/event/:eventSlug/checkout" element={<Pricing />} />
           <Route
             path="/qr/:bookingId"
             element={

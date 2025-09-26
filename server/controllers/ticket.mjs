@@ -36,7 +36,7 @@ export const bookTicket = async (req, res) => {
     });
 
     // 5. Generate QR code (link for verification or bookingId)
-    const baseUrl = process.env.BASE_URL || "http://localhost:5000";
+    const baseUrl = process.env.BASE_URL || "http://localhost:4000";
     // const qrData = `${baseUrl}/verify/${ticket._id}`;
     // const qrCode = await QRCode.toDataURL(qrData);
 

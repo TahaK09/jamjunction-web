@@ -11,7 +11,7 @@ const QRComponent = () => {
     const fetchTicketDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/tickets/${bookingId}`
+          `http://localhost:4000/api/tickets/${bookingId}`
         );
         const data = await response.json();
         if (data.success) {
@@ -32,7 +32,7 @@ const QRComponent = () => {
     const fetchEventDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/events/${ticketDetails?.eventId?._id}`
+          `http://localhost:4000/api/events/${ticketDetails?.eventId?._id}`
         );
         const data = await response.json();
         console.log(data.event);
@@ -108,7 +108,10 @@ const QRComponent = () => {
 
           {/* QR Code */}
           <div className="p-4 bg-white rounded-xl mt-5">
-            <QRCode value={bookingId} size={150} />
+            <QRCode
+              value={`http://localhost:5174/api/tickets/validate/${bookingId}`}
+              size={150}
+            />
           </div>
 
           {/* Seat Details /Floor Details */}
