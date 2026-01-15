@@ -16,7 +16,7 @@ function Header() {
         </div>
       </Link>
       /
-      <Link to="/shaan-e-shukoon">
+      <Link to="/event/latest">
         <div className="text-base font-normal text-white figtree cursor-pointer">
           Events
         </div>

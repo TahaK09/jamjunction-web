@@ -10,7 +10,8 @@ function App() {
       <div className="flex flex-col items-center justify-center h-auto">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route
+          <Route path="/event/latest" element={<Event />} />
+          {/* <Route
             path="/event/:eventSlug"
             element={<Event eventId={"68d6745c43f5ee55145b8a94"} />}
           />
@@ -20,7 +21,7 @@ function App() {
             element={
               <QRComponent text="https://jamjunctionlucknow.com/verify/asdfdsjfk" />
             }
-          />
+          /> */}
         </Routes>
       </div>
     </>

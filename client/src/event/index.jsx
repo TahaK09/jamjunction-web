@@ -8,34 +8,49 @@ import { useParams } from "react-router-dom";
 
 function Event() {
   const { eventSlug } = useParams();
-  const [event, setEvent] = useState({});
+  // const [event, setEvent] = useState({});
   const [copied, setCopied] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchEvent = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:4000/api/events/slug/${eventSlug}`
-        );
-        const data = await response.json();
-        if (data.success) {
-          setEvent(data.event);
-        } else {
-          console.error("Failed to fetch event details");
-        }
-      } catch (error) {
-        console.error("Error fetching event details:", error);
-      }
-    };
-    if (eventSlug) {
-      fetchEvent();
-    }
-  }, [eventSlug]);
-  console.log(event);
+  // useEffect(() => {
+  //   const fetchEvent = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `http://localhost:4000/api/events/slug/${eventSlug}`
+  //       );
+  //       const data = await response.json();
+  //       if (data.success) {
+  //         setEvent(data.event);
+  //       } else {
+  //         console.error("Failed to fetch event details");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching event details:", error);
+  //     }
+  //   };
+  //   if (eventSlug) {
+  //     fetchEvent();
+  //   }
+  // }, [eventSlug]);
+  // console.log(event);
 
-  const checkout = async () => {
-    navigate(`/event/${eventSlug}/checkout`);
+  // const checkout = async () => {
+  //   navigate(`/event/${eventSlug}/checkout`);
+  // };
+
+  event = {
+    title: "Lucknow’s first-ever Japanese-themed Bollywood Jamming Night",
+    image:
+      "https://instagram.flko10-1.fna.fbcdn.net/v/t51.82787-15/611728576_17871053940503111_1110210773093387995_n.webp?stp=dst-webp_p640x640_sh0.08&_nc_cat=106&ig_cache_key=MzgwNjMyNzk0NTE0NjAwNjU3Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwOTN4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=dZFUJuiXZfgQ7kNvwFCSIu6&_nc_oc=AdmXOo177nQYM387abz5HwnlHpY0Apo5HL8eyfJH92dSJP2xjhNdrop95RkTp0maeUUVGDWudB7QV3LDyK51Fi9M&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.flko10-1.fna&_nc_gid=aKCicSsEysKL0rdYR0rUcw&oh=00_AfqLfWyeV-dAGHzJKUnuewE1CWhwB0FY2Zl41IFTOJytww&oe=696E6EA2",
+    date: "18th Jan, 2026",
+    startTime: "5:30 PM",
+    endTime: "10:00 PM",
+    location: "Riverside Mall – Gomti Nagar, Lucknow",
+    venue: "Mamagoto",
+    capacity: 100,
+    ticketsSold: "N/A",
+    description:
+      "Where sakura vibes blend seamlessly with desi melodies, an evening of music, food, and fun awaits you. Enjoy live Bollywood music and Bollywood-style jamming while soaking in Japanese aesthetics and indulging in delicious Japanese cuisine. With free entry for everyone, this vibrant gathering invites you to sip, sing, and vibe with fellow music lovers.",
   };
 
   const handleInvite = async () => {
@@ -173,11 +188,8 @@ function Event() {
             </div>
             {/* Book your tickets */}
             <div className="w-full flex justify-center items-center h-40 bg-gradient-to-b from-transparent via-white to-white fixed bottom-0 left-0 right-0 p-4">
-              <button
-                onClick={checkout}
-                className="flex justify-center items-center gap-6 w-full px-6 h-10 rounded-lg bg-violet-500 hover:bg-violet-600 text-white text-base font-medium figtree mt-6"
-              >
-                Checkout Tickets
+              <button className="flex justify-center items-center gap-6 w-full px-6 h-10 rounded-lg bg-violet-500 hover:bg-violet-600 text-white text-base font-medium figtree mt-6">
+                Free Entry
                 <div className="bg-violet-800 rounded-full w-6 h-6 flex justify-center items-center">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
