@@ -43,8 +43,8 @@ function Event() {
     image:
       "https://instagram.flko10-1.fna.fbcdn.net/v/t51.82787-15/611728576_17871053940503111_1110210773093387995_n.webp?stp=dst-webp_p640x640_sh0.08&_nc_cat=106&ig_cache_key=MzgwNjMyNzk0NTE0NjAwNjU3Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEwOTN4MTQ0MC5zZHIuQzMifQ%3D%3D&_nc_ohc=dZFUJuiXZfgQ7kNvwFCSIu6&_nc_oc=AdmXOo177nQYM387abz5HwnlHpY0Apo5HL8eyfJH92dSJP2xjhNdrop95RkTp0maeUUVGDWudB7QV3LDyK51Fi9M&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.flko10-1.fna&_nc_gid=aKCicSsEysKL0rdYR0rUcw&oh=00_AfqLfWyeV-dAGHzJKUnuewE1CWhwB0FY2Zl41IFTOJytww&oe=696E6EA2",
     date: "18th Jan, 2026",
-    startTime: "5:30 PM",
-    endTime: "10:00 PM",
+    startTime: "17:30",
+    endTime: "22:00",
     location: "Riverside Mall – Gomti Nagar, Lucknow",
     venue: "Mamagoto",
     capacity: 100,
