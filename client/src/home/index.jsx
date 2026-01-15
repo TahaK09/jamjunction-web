@@ -80,7 +80,7 @@ function Home() {
         <div className="content w-full pb-10 bg-gradient-to-b from-transparent via-black/50 to-black text-white text-3xl asimovian-regular flex flex-col items-center justify-center">
           JamJunction
           <div className="text-sm font-light mt-2 figtree w-60 text-center">
-            Register for Sakura Sips happening on 22th Sept!
+            Register for Sakura Sips happening on 18th Jan!
           </div>
           <button className="mt-10 w-auto px-3 py-2 rounded-full text-sm figtree bg-violet-700">
             Book the latest Event!
